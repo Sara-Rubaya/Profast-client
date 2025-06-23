@@ -14,7 +14,7 @@ const logos = [amazon, amazonVector, casio, moonstar, randstad, startPeople, sta
 const ClientLogos = () => {
   return (
     <section className=" m-5">
-      <h2 className="text-center text-2xl md:text-3xl font-bold mb-6">We've helped thousands of sales teams</h2>
+      <h2 className="text-center text-2xl md:text-3xl font-bold p-8 mb-6">We've helped thousands of sales teams</h2>
       <Marquee pauseOnHover={true} speed={50} gradient={false}>
         <div className="flex gap-40  items-center">
           {logos.map((logo, index) => (
