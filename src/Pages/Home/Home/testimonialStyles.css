@@ -1,0 +1,25 @@
+/* testimonialStyles.css */
+
+.testimonial-swiper .swiper-slide {
+  opacity: 0.3;
+  transform: scale(0.95);
+  transition: all 0.3s ease-in-out;
+  filter: blur(1px);
+  pointer-events: none;
+}
+
+.testimonial-swiper .swiper-slide.swiper-slide-active {
+  opacity: 1;
+  transform: scale(1.05);
+  filter: blur(0);
+  z-index: 10;
+  pointer-events: auto;
+}
+.swiper-pagination-bullet {
+  background: #c4c4c4;
+  opacity: 1;
+}
+
+.swiper-pagination-bullet-active {
+  background: #00b894;
+}

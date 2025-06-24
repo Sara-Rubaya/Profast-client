@@ -28,7 +28,7 @@ const FeatureSection = () => {
 
   <h2 className="text-4xl font-bold text-center mb-6">Why Choose Us</h2>
 
-  <div className="space-y-6">
+  <div data-aos="zoom-in-up" className="space-y-6">
     {features.map((feature, index) => (
       <div
         key={index}
