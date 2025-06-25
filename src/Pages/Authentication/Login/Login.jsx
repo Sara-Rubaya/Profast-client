@@ -1,5 +1,7 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
+import { Link } from 'react-router';
+import SocilaLogin from '../SocialLogin/SocilaLogin';
 
 const Login = () => {
     const {register, handleSubmit, formState:{errors} } = useForm();
@@ -8,7 +10,9 @@ const Login = () => {
         console.log(data)
     }
     return (
-        <div className='mx-auto h-2/3'>
+          <div className="card bg-base-100 w-full max-w-sm shrink-0 shadow-2xl ">
+      <div className="card-body">
+         <h1 className="text-5xl font-bold">Login now!</h1>
            <form onSubmit={handleSubmit(onSubmit)}>
             <fieldset className="fieldset">
           <label className="label">Email</label>
@@ -34,12 +38,14 @@ const Login = () => {
           
           <div><a className="link link-hover">Forgot password?</a></div>
           
-          
+            <button className="btn btn-primary text-black mt-4 px-12 text-lg">Login</button>
            
             
         </fieldset>
-         <button className="btn btn-neutral mt-4 px-12 text-lg">Login</button>
+        <p><small>New to this website?<Link className='btn btn-link ' to="/register"><small>Register</small></Link></small></p>
            </form>
+           <SocilaLogin></SocilaLogin>
+        </div>
         </div>
     );
 };
