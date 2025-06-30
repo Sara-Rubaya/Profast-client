@@ -2,13 +2,14 @@ import React from 'react';
 
 import { useQuery } from '@tanstack/react-query';
 import useAxiosSecure from '../../../Hooks/useAxiosSecure';
-import useAuth from '../../../Hooks/useAuth';
+import useAuth from '../../../hooks/useAuth';
+
 
 
 const formatDate = (iso) => new Date(iso).toLocaleString();
 
 const PaymentHistory = () => {
-    const { user } = useAuth();
+    const { user } = useAuth ();
     const axiosSecure = useAxiosSecure();
 
     const { isPending, data: payments = [] } = useQuery({

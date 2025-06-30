@@ -2,7 +2,8 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import { Link, useLocation, useNavigate } from 'react-router';
 import SocilaLogin from '../SocialLogin/SocilaLogin';
-import useAuth from '../../../Hooks/useAuth';
+import useAuth from '../../../hooks/useAuth';
+
 
 const Login = () => {
     const {register, handleSubmit, formState:{errors} } = useForm();
