@@ -2,7 +2,8 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import { Link, useLocation, useNavigate } from 'react-router';
 import SocilaLogin from '../SocialLogin/SocilaLogin';
-import useAuth from '../../../hooks/useAuth';
+import useAuth from '../../../Hooks/useAuth';
+
 
 
 const Login = () => {
@@ -53,7 +54,7 @@ const Login = () => {
            
             
         </fieldset>
-        <p><small>New to this website?<Link className='btn btn-link ' to="/register"><small>Register</small></Link></small></p>
+        <p><small>New to this website?<Link state={{from}} className='btn btn-link ' to="/register"><small>Register</small></Link></small></p>
            </form>
            <SocilaLogin></SocilaLogin>
         </div>
