@@ -1,18 +1,22 @@
 import React from 'react';
 import { NavLink, Outlet } from 'react-router';
 
-import { FaHome, FaBoxOpen, FaMoneyCheckAlt, FaUserEdit, FaSearchLocation, FaUserCheck, FaUserClock } from 'react-icons/fa';
+import { FaHome, FaBoxOpen, FaMoneyCheckAlt, FaUserEdit, FaSearchLocation, FaUserCheck, FaUserClock, FaUserShield } from 'react-icons/fa';
 import ProFastLogo from '../Pages/Home/Home/Shared/ProfastLogo/ProFastLogo';
+import useUserRole from '../Hooks/useUserRole';
 
 const DashboardLayout = () => {
-    return (
+     const { role, roleLoading } = useUserRole();
+    console.log(role);
+
+     return (
         <div className="drawer lg:drawer-open">
             <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
             <div className="drawer-content flex flex-col">
 
                 {/* Navbar */}
                 <div className="navbar bg-base-300 w-full lg:hidden">
-                    <div className="flex-none ">
+                     <div className="flex-none ">
                         <label htmlFor="my-drawer-2" aria-label="open sidebar" className="btn btn-square btn-ghost">
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
@@ -74,18 +78,34 @@ const DashboardLayout = () => {
                     </li>
 
                     {/* riders link */}
-                    <li>
-                        <NavLink to="/dashboard/active-riders">
-                            <FaUserCheck className="inline-block mr-2" />
-                            Active Riders
-                        </NavLink>
-                    </li>
-                    <li>
-                        <NavLink to="/dashboard/pending-riders">
-                            <FaUserClock className="inline-block mr-2" />
-                            Pending Riders
-                        </NavLink>
-                    </li>
+                    {!roleLoading && role === 'admin' &&
+                        <>
+                            <li>
+                                <NavLink to="/dashboard/assign-rider">
+                                    <FaMotorcycle className="inline-block mr-2" />
+                                    Assign Rider
+                                </NavLink>
+                            </li>
+                            <li>
+                                <NavLink to="/dashboard/active-riders">
+                                    <FaUserCheck className="inline-block mr-2" />
+                                    Active Riders
+                                </NavLink>
+                            </li>
+                            <li>
+                                <NavLink to="/dashboard/pending-riders">
+                                    <FaUserClock className="inline-block mr-2" />
+                                    Pending Riders
+                                </NavLink>
+                            </li>
+                            <li>
+                                <NavLink to="/dashboard/makeAdmin">
+                                    <FaUserShield className="inline-block mr-2" />
+                                    Make Admin
+                                </NavLink>
+                            </li>
+                        </>
+                    }
                 </ul>
             </div>
         </div>
