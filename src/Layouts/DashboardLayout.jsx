@@ -1,22 +1,24 @@
 import React from 'react';
 import { NavLink, Outlet } from 'react-router';
 
-import { FaHome, FaBoxOpen, FaMoneyCheckAlt, FaUserEdit, FaSearchLocation, FaUserCheck, FaUserClock, FaUserShield } from 'react-icons/fa';
-import ProFastLogo from '../Pages/Home/Home/Shared/ProfastLogo/ProFastLogo';
+import { FaHome, FaBoxOpen, FaMoneyCheckAlt, FaUserEdit, FaSearchLocation, FaUserCheck, FaUserClock, FaUserShield, FaMotorcycle } from 'react-icons/fa';
 import useUserRole from '../Hooks/useUserRole';
+import ProFastLogo from '../Pages/Home/Home/Shared/ProfastLogo/ProFastLogo';
+
 
 const DashboardLayout = () => {
-     const { role, roleLoading } = useUserRole();
+
+    const { role, roleLoading } = useUserRole();
     console.log(role);
 
-     return (
+    return (
         <div className="drawer lg:drawer-open">
             <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
             <div className="drawer-content flex flex-col">
 
                 {/* Navbar */}
                 <div className="navbar bg-base-300 w-full lg:hidden">
-                     <div className="flex-none ">
+                    <div className="flex-none ">
                         <label htmlFor="my-drawer-2" aria-label="open sidebar" className="btn btn-square btn-ghost">
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
