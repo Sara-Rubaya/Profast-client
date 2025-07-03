@@ -21,6 +21,10 @@ import MakeAdmin from "../Pages/Dashboard/MakeAdmin/MakeAdmin";
 import Forbidden from "../Pages/Forbidden/Forbidden";
 import AdminRoute from "../Routes/AdminRoute";
 import AssignRider from "../Pages/Dashboard/AssignRider/AssignRider";
+import RiderRoute from "../Routes/RiderRoute";
+import PendingDeliveries from "../Pages/Dashboard/PendingDelivaries/PendingDeliveries";
+import CompletedDeliveries from "../Pages/Dashboard/CompletedDeliveries/CompletedDeliveries";
+import MyEarnings from "../Pages/Dashboard/MyEarnings/MyEarnings";
 
 
 
@@ -96,6 +100,21 @@ export const router = createBrowserRouter([
         path: 'track',
         Component: TrackParcel
       },
+      //rider only routes
+      {
+        path:'pending-deliveries',
+        element:<RiderRoute><PendingDeliveries></PendingDeliveries></RiderRoute>
+      },
+      {
+        path:'completed-deliveries',
+        element:<RiderRoute><CompletedDeliveries></CompletedDeliveries></RiderRoute>
+      },
+      {
+        path:'my-earnings',
+        element:<RiderRoute><MyEarnings></MyEarnings></RiderRoute>
+      },
+
+      //admin onlu routes
       {
         path:'assign-rider',
         element: <AdminRoute><AssignRider></AssignRider></AdminRoute>

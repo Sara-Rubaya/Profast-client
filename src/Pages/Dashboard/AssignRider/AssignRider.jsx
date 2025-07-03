@@ -4,12 +4,18 @@ import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import { useState } from "react";
 import Swal from "sweetalert2";
 
+import useAuth from "../../../hooks/useAuth";
+import useTrackingLogger from "../../../Hooks/useTrackingLogger";
+
 const AssignRider = () => {
     const axiosSecure = useAxiosSecure();
     const [selectedParcel, setSelectedParcel] = useState(null);
+    const [selectedRider, setSelectedRider] = useState(null);
     const [riders, setRiders] = useState([]);
     const [loadingRiders, setLoadingRiders] = useState(false);
     const queryClient = useQueryClient();
+    const { logTracking } = useTrackingLogger();
+    const { user } = useAuth();
 
     const { data: parcels = [], isLoading } = useQuery({
         queryKey: ["assignableParcels"],
@@ -26,15 +32,25 @@ const AssignRider = () => {
 
     const { mutateAsync: assignRider } = useMutation({
         mutationFn: async ({ parcelId, rider }) => {
+            setSelectedRider(rider);
             const res = await axiosSecure.patch(`/parcels/${parcelId}/assign`, {
                 riderId: rider._id,
+                riderEmail: rider.email,
                 riderName: rider.name,
             });
             return res.data;
         },
-        onSuccess: () => {
+        onSuccess: async () => {
             queryClient.invalidateQueries(["assignableParcels"]);
             Swal.fire("Success", "Rider assigned successfully!", "success");
+
+            // track rider assigned
+            await logTracking({
+                tracking_id: selectedParcel.tracking_id,
+                status: "rider_assigned",
+                details: `Assigned to ${selectedRider.name}`,
+                updated_by: user.email,
+            });
             document.getElementById("assignModal").close();
         },
         onError: () => {

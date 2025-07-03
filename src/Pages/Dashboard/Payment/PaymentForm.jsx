@@ -2,11 +2,11 @@ import { CardElement, useElements, useStripe } from '@stripe/react-stripe-js';
 import { useQuery } from '@tanstack/react-query';
 import React, { useState } from 'react';
 import { useNavigate, useParams } from 'react-router';
-
-
+import useAxiosSecure from '../../../hooks/useAxiosSecure';
+import useAuth from '../../../hooks/useAuth';
 import Swal from 'sweetalert2';
-import useAxiosSecure from '../../../Hooks/useAxiosSecure';
-import useAuth from '../../../Hooks/useAuth';
+import useTrackingLogger from '../../../Hooks/useTrackingLogger';
+
 
 const PaymentForm = () => {
     const stripe = useStripe();
@@ -14,6 +14,7 @@ const PaymentForm = () => {
     const { parcelId } = useParams();
     const { user } = useAuth();
     const axiosSecure = useAxiosSecure();
+    const { logTracking } = useTrackingLogger();
     const navigate = useNavigate();
 
     const [error, setError] = useState('');
@@ -107,38 +108,47 @@ const PaymentForm = () => {
                             confirmButtonText: 'Go to My Parcels',
                         });
 
-                        // ✅ Redirect to /myParcels
-                        navigate('/dashboard/myParcels');
 
-                    }
+                        await logTracking(
+                            {
+                                tracking_id: parcelInfo.tracking_id,
+                                status: "payment_done",
+                                details: `Paid by ${user.displayName}`,
+                                updated_by: user.email,
+                            }
+                        )
+                    // ✅ Redirect to /myParcels
+                    navigate('/dashboard/myParcels');
+
                 }
             }
         }
-
-
-
-
-
     }
 
-    return (
-        <div>
-            <form onSubmit={handleSubmit} className="space-y-4 bg-white p-6 rounded-xl shadow-md w-full max-w-md mx-auto">
-                <CardElement className="p-2 border rounded">
-                </CardElement>
-                <button
-                    type='submit'
-                    className="btn btn-primary text-black w-full"
-                    disabled={!stripe}
-                >
-                    Pay ${amount}
-                </button>
-                {
-                    error && <p className='text-red-500'>{error}</p>
-                }
-            </form>
-        </div>
-    );
+
+
+
+
+}
+
+return (
+    <div>
+        <form onSubmit={handleSubmit} className="space-y-4 bg-white p-6 rounded-xl shadow-md w-full max-w-md mx-auto">
+            <CardElement className="p-2 border rounded">
+            </CardElement>
+            <button
+                type='submit'
+                className="btn btn-primary text-black w-full"
+                disabled={!stripe}
+            >
+                Pay ${amount}
+            </button>
+            {
+                error && <p className='text-red-500'>{error}</p>
+            }
+        </form>
+    </div>
+);
 };
 
 export default PaymentForm;
